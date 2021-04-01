@@ -1,0 +1,215 @@
+body {
+  margin: 0px;
+  height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+}
+/* * {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+} */
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 60pt;
+  font-weight: 700;
+}
+.fa-minus {
+  color: rgb(238, 59, 59);
+}
+.fa-plus {
+  color: rgb(32, 232, 32);
+}
+.fa-bars {
+  color: black;
+  transform: rotate(-45deg);
+  visibility: hidden;
+}
+#waterDrop {
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 0px 50% 50% 50%;
+
+    transform: rotate(45deg);
+
+    height: 64px;
+    width: 64px;
+    margin: 4px;
+    
+    top: 25%;
+    bottom: 50%;
+    background-image: radial-gradient(ellipse at top, rgb(255, 255, 255) 50%, rgb(203, 205, 255));
+    
+}
+#waterDropContent {
+  transform: rotate(-45deg);
+}
+.container {
+  
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 125px 100%;
+  grid-template-areas: 
+    "title title"
+    "menu content";
+  row-gap: 10px;
+  /* background-color: #E1E2E1; */
+  background-color: white;
+  height: 100vh;
+  overflow: hidden;
+  margin-top: 0px;
+}
+  
+.titlebar {
+  grid-area: title;
+  background-color: #039be5;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  color: white;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  margin-bottom: 0px;
+  align-self:auto;
+}
+.menu {
+  grid-area: menu;
+  align-self: stretch;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  background-color: #E1E2E1;
+  
+}
+.menuItem {
+  text-align: right;
+  font-size: 20pt;
+  border-width: 0px;
+  margin-right: 10px;
+  padding-right: 10px;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  
+}
+.menuItem:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+}
+.selected {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  border-style: solid;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  background-color: #63ccff;
+}
+.contentArea {
+  grid-area: content;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  /* margin-left: 3rem; */
+  margin-right: 3rem;
+  background-color: rgba(255, 255, 255, 0);
+  padding-left: 3rem;
+  gap: 3rem;
+  
+}
+.task {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  height: fit-content;
+  display: grid;
+  grid-template-rows: 1.5em auto auto 2em;
+  margin-top: 4rem;
+  background-color: #E1E2E1;
+}
+.taskTitle {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: #039be5;
+
+}
+  .taskName {
+    justify-self: left;
+    margin-left: 1em;
+    align-self: center;
+
+  }
+  .taskProject {
+    place-self: center;
+  }
+  .taskDate {
+    justify-self: right;
+    margin-right: 1em;
+    align-self: center;
+  }
+  #taskDate {
+    background-color: transparent;
+    border-style: none;
+    font-family: 'Montserrat', sans-serif;
+  }
+  #taskDate:focus {
+    border-style: none;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    outline: none;
+  }
+.taskDesc {
+  place-self: stretch;
+  margin: 1rem
+}
+#description {
+  width: 100%;
+  overflow-y: auto;
+  max-height: 100%;
+  height: 4rem;
+  border-radius: 15px;
+  background-color: #63ccff;
+  border-style: none;
+  text-align: left;
+  text-indent: 1rem;
+}
+
+#description:focus {
+  border-style: none;
+  outline: none;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+textarea {
+  resize: none;
+}
+.subTasks {
+  place-self: center;
+  text-align: center;
+}
+
+.subtask:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+}
+.taskFooter {
+  display: grid;
+  place-self: stretch;
+  text-indent: .5em;
+  grid-template-columns: 1fr 1.5em;
+  align-self: end;
+}
+.taskImportant {
+  background-color: white;
+  justify-self: right;
+  padding-right: 1em;
+  border-style: solid;
+  border-color: red;
+}
+.taskImportant:hover {
+  background-color: red;
+}
+.addNewTask {
+  width: 100%;
+  height: 1.5em;
+  padding-top: .5em;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  background-color: #E1E2E1;
+  text-justify: start;
+  
+}
