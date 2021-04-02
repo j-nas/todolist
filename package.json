@@ -10,17 +10,19 @@
     "url": "git+https://github.com/j-nas/todolist.git"
   },
   "author": "Jon Naske",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/j-nas/todolist/issues"
   },
   "homepage": "https://github.com/j-nas/todolist#readme",
   "devDependencies": {
-    "webpack": "^5.28.0",
+    "webpack": "^5.30.0",
     "webpack-cli": "^4.6.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "date-fns": "^2.19.0"
-  }
+  },
+  "main": "webpack.config.js",
+  "keywords": []
 }
