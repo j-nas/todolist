@@ -1,1 +1,2 @@
-alert("FITS NOW")
+import render from "./dom"
+render.base()
