@@ -1,4 +1,4 @@
-import data from "./data";
+import taskData from "./data";
 
 const render = (() => {
   const title = () => {
@@ -58,7 +58,7 @@ const render = (() => {
     selectedMenuItem = dataset
   } 
   
-  const menuSelection = (dataset) => {
+  const menuSelection = () => {
     const _menuItem = Array.from(document.querySelectorAll(".menuItem"));
     _menuItem.forEach((sel) => sel.classList.remove("selected"));
     let selected = document.querySelector(
@@ -68,20 +68,10 @@ const render = (() => {
   };
 
 
-  const newCard = ({ text, domclass, dataset }) => ({
-    text,
-    domclass,
-    dataset,
-  });
-
-  const cardParts = [
-   
-
-  ]
   const defaultTextArea = `<textarea resize="none" name="" id="description">Add description here</textarea>`
   
   const drawCards = () => {
-    let tasks = document.querySelector(".contentArea")
+    let tasks = []
     let _subTasks = ["one taks", 'another tasks']
     let cardList = ["not empty"]
     for (let i = 0; i < cardList.length; i++) {
