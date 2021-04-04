@@ -71,59 +71,61 @@ const render = (() => {
   const defaultTextArea = `<textarea resize="none" name="" id="description">Add description here</textarea>`
   
   const drawCards = () => {
-    let tasks = []
+    let tasks = document.querySelector(".contentArea")
     let _subTasks = ["one taks", 'another tasks']
     let cardList = ["not empty"]
-    for (let i = 0; i < cardList.length; i++) {
-      let task = document.createElement("div")
-      task.classList.add("task")
-      tasks.appendChild(task)
-      let taskTitle = document.createElement("div")
-      taskTitle.classList.add("taskTitle")
-      task.appendChild(taskTitle)
-      let taskName = document.createElement("div")
-      taskName.classList.add("taskName")
-      taskName.innerHTML = `<span><i class="fas fa-minus"></i></span> Task Name`
-      taskTitle.appendChild(taskName)
-      let taskProject = document.createElement("div")
-      taskProject.classList.add("taskProject")
-      taskProject.innerText = "Project 1"
-      taskTitle.appendChild(taskProject)
-      let taskDate = document.createElement("div")
-      taskDate.classList.add("taskDate")
-      taskDate.innerHTML = `<input type="date" id="taskDate">`
-      taskTitle.appendChild(taskDate)
+    if (taskData.getTasks(selectedMenuItem) !== []) {
+      for (let i = 0; i < cardList.length; i++) { //convert to gettasks
+        let task = document.createElement("div")
+        task.classList.add("task")
+        tasks.appendChild(task)
+        let taskTitle = document.createElement("div")
+        taskTitle.classList.add("taskTitle") 
+        task.appendChild(taskTitle)
+        let taskName = document.createElement("div")
+        taskName.classList.add("taskName") //add task id dataset
+        taskName.innerHTML = `<span><i class="fas fa-minus"></i></span> Task Name`//gettaskname
+        taskTitle.appendChild(taskName)
+        let taskProject = document.createElement("div")
+        taskProject.classList.add("taskProject")//add task id dataset
+        taskProject.innerText = "Project 1"//gettaskproject
+        taskTitle.appendChild(taskProject)
+        let taskDate = document.createElement("div")
+        taskDate.classList.add("taskDate")
+        taskDate.innerHTML = `<input type="date" id="taskDate">`
+        taskTitle.appendChild(taskDate)
 
-      let taskDesc = document.createElement("div")
-      taskDesc.classList.add("taskDesc")
-      taskDesc.innerHTML = defaultTextArea
-      task.appendChild(taskDesc)
+        let taskDesc = document.createElement("div")
+        taskDesc.classList.add("taskDesc")
+        taskDesc.innerHTML = defaultTextArea
+        task.appendChild(taskDesc)
 
-      let subTasks = document.createElement("div")
-      subTasks.classList.add("subTasks")
-      task.appendChild(subTasks)
-      for (let j = 0; i < _subTasks.length; i++) {
-        let subtask = document.createElement("div")
-        subtask.classList.add("subtask")
-        subtask.innerHTML = `<i class="fas fa-minus"></i> ` + _subTasks[i]
-        subTasks.appendChild(subtask)
+        let subTasks = document.createElement("div")
+        subTasks.classList.add("subTasks")
+        task.appendChild(subTasks)
+        for (let j = 0; i < _subTasks.length; i++) {
+          let subtask = document.createElement("div")
+          subtask.classList.add("subtask")
+          subtask.innerHTML = `<i class="fas fa-minus"></i> ` + _subTasks[i]
+          subTasks.appendChild(subtask)
+        }
+        let newSubtask = document.createElement("div")
+        newSubtask.classList.add("subtask")
+        newSubtask.id = "newSubtask"
+        newSubtask.innerHTML = `<i class="fas fa-plus"></i> New subtask`
+        subTasks.appendChild(newSubtask)
+        let taskFooter = document.createElement("div")
+        taskFooter.classList.add("taskFooter")
+        task.appendChild(taskFooter)
+        let taskComplete = document.createElement("div")
+        taskComplete.classList.add("taskComplete")
+        taskComplete.innerHTML = `<i class="fas fa-check"></i> Task Complete`
+        taskFooter.appendChild(taskComplete)
+        let taskImportant = document.createElement("div")
+        taskImportant.classList.add("taskImportant")
+        taskImportant.innerHTML = `<i class="fas fa-exclamation"></i>`
+        taskFooter.appendChild(taskImportant)
       }
-      let newSubtask = document.createElement("div")
-      newSubtask.classList.add("subtask")
-      newSubtask.id = "newSubtask"
-      newSubtask.innerHTML = `<i class="fas fa-plus"></i> New subtask`
-      subTasks.appendChild(newSubtask)
-      let taskFooter = document.createElement("div")
-      taskFooter.classList.add("taskFooter")
-      task.appendChild(taskFooter)
-      let taskComplete = document.createElement("div")
-      taskComplete.classList.add("taskComplete")
-      taskComplete.innerHTML = `<i class="fas fa-check"></i> Task Complete`
-      taskFooter.appendChild(taskComplete)
-      let taskImportant = document.createElement("div")
-      taskImportant.classList.add("taskImportant")
-      taskImportant.innerHTML = `<i class="fas fa-exclamation"></i>`
-      taskFooter.appendChild(taskImportant)
 
       let addNewTask = document.createElement("div")
       addNewTask.classList.add("addNewTask")
