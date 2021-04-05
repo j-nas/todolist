@@ -4,7 +4,7 @@ const taskData = (() => {
   const getTasks = (sort) => {
     switch (sort) {
       case "all":
-        return taskList
+        return JSON.parse(localStorage.getItem("tasks"))
         
     
       default:
@@ -18,16 +18,19 @@ const taskData = (() => {
   }
   let idcount = +localStorage.getItem("idcount")
   console.log(idcount)
-  let taskList = []
-  const pushToLocal = () => {
+  const pushToLocal = (taskList) => {
     localStorage.setItem('tasks', JSON.stringify(taskList))
   }
   const returnLocal = () => {
-    taskList = JSON.parse(localStorage.getItem("tasks"))
-    console.log(taskList)
+    if(JSON.parse(localStorage.getItem("tasks")) == null) {
+      return []
+    }
+    console.log(JSON.parse(localStorage.getItem("tasks")))
+    return JSON.parse(localStorage.getItem("tasks"))
   }
   const newTask = () => {
-    returnLocal()
+    
+    let taskList = returnLocal()
     let today = new Date().toISOString().slice(0,10)
     idcount += 1
     localStorage.setItem("idcount", idcount)
@@ -41,12 +44,14 @@ const taskData = (() => {
       project: "Add to a project",
       subtasks: []
     })
-    pushToLocal()
+    pushToLocal(taskList)
   }
 
   const addTitle = (dataset, newTitle) => {
-    let titleTarget = taskList.filter(task => task.id == dataset)
-    taskList[taskList.indexOf(titleTarget[0])].title = newTitle
+    let arr = returnLocal()
+    let titleTarget = arr.filter(task => task.id == dataset)
+    arr[arr.indexOf(titleTarget[0])].title = newTitle
+    pushToLocal(arr)
   }
   
   const addDate = (dataset, newDate) => {

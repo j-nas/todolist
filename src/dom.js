@@ -1,5 +1,5 @@
 import taskData from "./data";
-
+import { compareAsc, parseISO } from '../node_modules/date-fns'
 const render = (() => {
   const title = () => {
     const titleBar = document.createElement("div");
@@ -68,14 +68,13 @@ const render = (() => {
   };
 
 
-  const defaultTextArea = `<textarea resize="none" name="" id="description">Add description here</textarea>`
   
   const drawCards = () => {
     let tasks = document.querySelector(".contentArea")
-    let _subTasks = ["one taks", 'another tasks']
-    let cardList = ["not empty"]
-    if (taskData.getTasks(selectedMenuItem) !== []) {
-      for (let i = 0; i < cardList.length; i++) { //convert to gettasks
+    tasks.innerHTML = ""
+    let taskList = taskData.getTasks(selectedMenuItem)
+    if (taskData.getTasks(selectedMenuItem) !== null ) {
+      for (let i = 0; i < taskList.length; i++) { 
         let task = document.createElement("div")
         task.classList.add("task")
         tasks.appendChild(task)
@@ -83,55 +82,77 @@ const render = (() => {
         taskTitle.classList.add("taskTitle") 
         task.appendChild(taskTitle)
         let taskName = document.createElement("div")
-        taskName.classList.add("taskName") //add task id dataset
-        taskName.innerHTML = `<span><i class="fas fa-minus"></i></span> Task Name`//gettaskname
+        taskName.classList.add("taskName")
+        taskName.setAttribute("data-task", `${taskList[i].id}`)
+        taskName.innerHTML = 
+          `<span><i class="fas fa-minus"></i></span> ${taskList[i].title}`
         taskTitle.appendChild(taskName)
         let taskProject = document.createElement("div")
-        taskProject.classList.add("taskProject")//add task id dataset
-        taskProject.innerText = "Project 1"//gettaskproject
+        taskProject.classList.add("taskProject")
+        taskProject.setAttribute("data-task", `${taskList[i].id}`)
+        taskProject.innerText = taskList[i].project
         taskTitle.appendChild(taskProject)
         let taskDate = document.createElement("div")
         taskDate.classList.add("taskDate")
-        taskDate.innerHTML = `<input type="date" id="taskDate">`
-        taskTitle.appendChild(taskDate)
+        taskDate.setAttribute("data-task", `${taskList[i].id}`)
+        taskDate.innerHTML = 
+          `<input type="date" id="taskDate" value="${taskList[i].date}">`//gettaskdate
+        if(compareAsc(
+            parseISO(taskList[i].date), 
+            parseISO(new Date().toISOString().slice(0,10))) < 0) {
+          taskDate.style.color = "red"
+        }
+        taskTitle.appendChild(taskDate)                         //if taskdate < today make red
 
         let taskDesc = document.createElement("div")
         taskDesc.classList.add("taskDesc")
-        taskDesc.innerHTML = defaultTextArea
+        taskDesc.setAttribute("data-task", `${taskList[i].id}`)
+        taskDesc.innerHTML = 
+          `<textarea resize="none" name="" id="description">${taskList[i].description}</textarea>`
         task.appendChild(taskDesc)
 
         let subTasks = document.createElement("div")
         subTasks.classList.add("subTasks")
         task.appendChild(subTasks)
-        for (let j = 0; i < _subTasks.length; i++) {
+        for (let j = 0; j < taskList[i].subtasks.length; j++) { //get subtasks
           let subtask = document.createElement("div")
           subtask.classList.add("subtask")
-          subtask.innerHTML = `<i class="fas fa-minus"></i> ` + _subTasks[i]
+          subtask.setAttribute("data-task", `${taskList[i].id}`)
+          subtask.innerHTML = 
+            `<i class="fas fa-minus"></i> ` + taskList[i].subtasks[j]
           subTasks.appendChild(subtask)
         }
         let newSubtask = document.createElement("div")
         newSubtask.classList.add("subtask")
         newSubtask.id = "newSubtask"
+        newSubtask.setAttribute("data-task", `${taskList[i].id}`)
         newSubtask.innerHTML = `<i class="fas fa-plus"></i> New subtask`
         subTasks.appendChild(newSubtask)
         let taskFooter = document.createElement("div")
         taskFooter.classList.add("taskFooter")
+        if(taskList[i].complete == true) {
+          taskFooter.style.backgroundColor = "green"
+          taskFooter.style.color = "white"
+        }
         task.appendChild(taskFooter)
         let taskComplete = document.createElement("div")
         taskComplete.classList.add("taskComplete")
-        taskComplete.innerHTML = `<i class="fas fa-check"></i> Task Complete`
+        taskComplete.innerHTML = `<i class="fas fa-check"></i> Task Complete` //get
         taskFooter.appendChild(taskComplete)
         let taskImportant = document.createElement("div")
         taskImportant.classList.add("taskImportant")
-        taskImportant.innerHTML = `<i class="fas fa-exclamation"></i>`
+        taskImportant.innerHTML = `<i class="fas fa-exclamation"></i>` //get important
+        if(taskList[i].complete == true) {
+          taskImportant.style.backgroundColor = "red"
+        }
         taskFooter.appendChild(taskImportant)
       }
 
-      let addNewTask = document.createElement("div")
-      addNewTask.classList.add("addNewTask")
-      addNewTask.innerHTML = `<i class="fas fa-plus"></i> <span> New Task</span>`
-      tasks.appendChild(addNewTask)
     }
+    let addNewTask = document.createElement("div")
+    addNewTask.classList.add("addNewTask")
+    addNewTask.innerHTML = `<i class="fas fa-plus"></i> <span> New Task</span>`
+    tasks.appendChild(addNewTask)
   }
 
   const base = () => {
@@ -146,6 +167,7 @@ const render = (() => {
     _tasks.classList.add("contentArea");
     container.appendChild(_tasks);
     drawCards();
+   
   };
 
   return {
