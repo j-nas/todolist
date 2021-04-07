@@ -21,11 +21,19 @@ h1 {
 }
 .fa-plus {
   color: rgb(32, 232, 32);
+  pointer-events: none;
 }
 .fa-bars {
   color: black;
   transform: rotate(-45deg);
   visibility: hidden;
+}
+.fa-exclamation {
+  pointer-events: none;
+  color: black;
+}
+.fa-check {
+  pointer-events: none;
 }
 /* Tear drop from https://csslayout.io/patterns/teardrop/ 
 © 2019-2021 Nguyen Huu Phuoc */
@@ -253,7 +261,8 @@ textarea {
   align-self: end;
 }
 .taskComplete {
-  width:fit-content;
+  width: 100%;
+  align-self: stretch;
 }
 .taskImportant {
   background-color: white;
@@ -267,10 +276,10 @@ textarea {
   box-shadow: 0 10px 20px rgba(226, 10, 10, 0.19), 0 6px 6px rgba(181, 43, 43, 0.23) inset;
 
 }
-.taskComplete:hover {
+/* .taskComplete:hover {
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23) inset;
 
-}
+} */
 .addNewTask {
   height: .6em;
   padding-top: .5em;
