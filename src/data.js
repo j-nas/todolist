@@ -14,10 +14,8 @@ const taskData = (() => {
   //initialize local storage
   if(localStorage.getItem('idcount') == null) {
     localStorage.setItem('idcount', '0') 
-    console.log("wut")
   }
   let idcount = +localStorage.getItem("idcount")
-  console.log(idcount)
   const pushToLocal = (taskList) => {
     localStorage.setItem('tasks', JSON.stringify(taskList))
   }
@@ -25,7 +23,6 @@ const taskData = (() => {
     if(JSON.parse(localStorage.getItem("tasks")) == null) {
       return []
     }
-    console.log(JSON.parse(localStorage.getItem("tasks")))
     return JSON.parse(localStorage.getItem("tasks"))
   }
   const newTask = () => {
@@ -47,6 +44,11 @@ const taskData = (() => {
     pushToLocal(taskList)
   }
 
+  const deleteTask = (dataset) => {
+    let taskListDeleted = returnLocal()
+    taskListDeleted = taskListDeleted.filter(task => task.id != dataset)
+    pushToLocal(taskListDeleted)
+  }
   const addTitle = (dataset, newTitle) => {
     let arrTitle = returnLocal()
     let titleTarget = arrTitle.filter(task => task.id == dataset)
@@ -86,25 +88,29 @@ const taskData = (() => {
   }
 
   const toggleComplete = (dataset) => {
+    let taskList = returnLocal()
     let completeTarget = taskList.filter(task => task.id == dataset)
     let completeIndex = taskList.indexOf(completeTarget[0])
-    console.log(ompleteIndex)
     if (taskList[completeIndex].complete === true) {
       taskList[completeIndex].complete = false
     } else {
       taskList[completeIndex].complete = true
     }
+    pushToLocal(taskList)
   }
-  const newSubTask = (dataset, subtask) => {
+  const newSubTask = (dataset) => {
     let taskListSub = returnLocal()
     let subTarget = taskListSub.filter(task => task.id == dataset)
-    taskListSub[taskListSub.indexOf(subTarget[0])].push(subtask)
+    taskListSub[taskListSub.indexOf(subTarget[0])].push("subtask")
     pushToLocal(taskListSub)
   }
   const delSubtask = (dataset, subtask) => {
-    let taskListSubDel = returnLocal()    
-    let subTaskArray = taskListSubDel.filter
-    subtaskToDelete
+    let taskListDel = returnLocal()    
+    let targetTask = taskListDel.filter(task => task.taskListDel == dataset)
+    taskListDel[taskListDel.indexOf(targetTask)]
+      .subtask.filter(task => task !== subtask)
+    pushToLocal(taskListDel)
+
   }
   const getProperty = (dataset, property) => {
     let propertyTarget = taskList.filter(task => task.id == dataset)
@@ -114,6 +120,7 @@ const taskData = (() => {
   return {
     addTitle,
     newTask,
+    deleteTask,
     getTasks,
     addDate,
     addDesc,

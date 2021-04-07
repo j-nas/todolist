@@ -4,11 +4,13 @@ const render = (() => {
   const icon = {
     plus:`<i class="fas fa-plus"></i>`,
     minus:`<i class="fas fa-minus"></i>`,
+    subMinus:`<i class="fas fa-minus sub"></i>`,
     check:`<i class="fas fa-check">`,
     exclaim:`<i class="fas fa-exclamation"></i>`,
     bars:`<i class="fas fa-bars"></i>`,
     edit:`<i class="far fa-edit"></i>`
   }
+
   
 
   
@@ -51,6 +53,8 @@ const render = (() => {
         let project = document.createElement("div");
         project.classList.add("menuItem");
         project.setAttribute("data-menu", `${projects[i]}`);
+        project.innerHTML = `<input type="text data-menu="${projects[i]}" 
+        id="project" value="${projects[i]}">`
         _menu.appendChild(project);
       }
     }
@@ -94,7 +98,7 @@ const render = (() => {
         let taskName = document.createElement("div")
         taskName.classList.add("taskName")
         taskName.setAttribute("data-task", `${taskList[i].id}`)
-        taskName.innerHTML = `<span>${icon.minus}</span>
+        taskName.innerHTML = `${icon.minus}
           <input type="text data-task="${taskList[i].id}" id="taskName" 
           value="${taskList[i].title}">`
         taskTitle.appendChild(taskName)
@@ -110,7 +114,7 @@ const render = (() => {
           `<input type="date" id="taskDate" data-task="${taskList[i].id}" value="${taskList[i].date}">`//gettaskdate
         if(compareAsc(
             parseISO(taskList[i].date), 
-            parseISO(new Date().toISOString().slice(0,10))) < 0) {
+            parseISO(new Date().toISOString().slice(0,10))) <= 0) {
           taskDate.style.color = "red"
         }
         taskTitle.appendChild(taskDate)                         //if taskdate < today make red
@@ -130,7 +134,7 @@ const render = (() => {
           subtask.classList.add("subtask")
           subtask.setAttribute("data-task", `${taskList[i].id}`)
           subtask.innerHTML = 
-            icon.minus + taskList[i].subtasks[j]
+            icon.subMinus + `<input type="text" id="subtask" value="${taskList[i].subtasks[j]}"` 
           subTasks.appendChild(subtask)
         }
         let newSubtask = document.createElement("div")
@@ -149,11 +153,13 @@ const render = (() => {
         let taskComplete = document.createElement("div")
         taskComplete.classList.add("taskComplete")
         taskComplete.innerHTML = `<i class="fas fa-check"></i> Task Complete` //get
+        taskComplete.setAttribute("data-task", `${taskList[i].id}`)
         taskFooter.appendChild(taskComplete)
         let taskImportant = document.createElement("div")
         taskImportant.classList.add("taskImportant")
+        taskImportant.setAttribute("data-task", `${taskList[i].id}`)
         taskImportant.innerHTML = icon.exclaim
-        if(taskList[i].complete == true) {
+        if(taskList[i].important == true) {
           taskImportant.style.backgroundColor = "red"
         }
         taskFooter.appendChild(taskImportant)
@@ -162,7 +168,7 @@ const render = (() => {
     }
     let addNewTask = document.createElement("div")
     addNewTask.classList.add("addNewTask")
-    addNewTask.innerHTML = `${icon.plus} <span> New Task</span>`
+    addNewTask.innerHTML = `${icon.plus}  New Task`
     tasks.appendChild(addNewTask)
   }
 
