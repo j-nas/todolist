@@ -48,34 +48,43 @@ const taskData = (() => {
   }
 
   const addTitle = (dataset, newTitle) => {
-    let arr = returnLocal()
-    let titleTarget = arr.filter(task => task.id == dataset)
-    arr[arr.indexOf(titleTarget[0])].title = newTitle
-    pushToLocal(arr)
+    let arrTitle = returnLocal()
+    let titleTarget = arrTitle.filter(task => task.id == dataset)
+    arrTitle[arrTitle.indexOf(titleTarget[0])].title = newTitle
+    pushToLocal(arrTitle)
   }
   
   const addDate = (dataset, newDate) => {
-    let dateTarget = taskList.filter(task => task.id == dataset)
-    taskList[taskList.indexOf(dateTarget[0])].date = newDate
+    let arrDate = returnLocal()
+    let dateTarget = arrDate.filter(task => task.id == dataset)
+    arrDate[arrDate.indexOf(dateTarget[0])].date = newDate
+    pushToLocal(arrDate)
   }
   const addDesc = (dataset, newDesc) => {
-    let descTarget = taskList.filter(task => task.id == dataset)
-    taskList[taskList.indexOf(descTarget[0])].description = newDesc
+    let arrDesc = returnLocal() 
+    let descTarget = arrDesc.filter(task => task.id == dataset)
+    arrDesc[arrDesc.indexOf(descTarget[0])].description = newDesc
+    pushToLocal(arrDesc)
   }
   const addProject = (dataset, newProject) => {
-    let projTarget = taskList.filter(task = task.id == dataset)
-    taskList[taskList.indexOf(projTarget[0])].project = newProject
+    let arrProj = returnLocal()
+    let projTarget = arrProj.filter(task => task.id == dataset)
+    arrProj[arrProj.indexOf(projTarget[0])].project = newProject
+    pushToLocal(arrProj)
   }
   
   const toggleImportant = (dataset) => {
-    let importantTarget = taskList.filter(task => task.id == dataset)
-    let importantIndex = taskList.indexOf(importantTarget[0])
-    if (taskList[importantIndex].important === true) {
-      taskList[importantIndex].important = false
+    let arrImp = returnLocal()
+    let importantTarget = arrImp.filter(task => task.id == dataset)
+    let importantIndex = arrImp.indexOf(importantTarget[0])
+    if (arrImp[importantIndex].important === true) {
+      arrImp[importantIndex].important = false
     } else {
-      taskList[importantIndex].important = true
+      arrImp[importantIndex].important = true
     }
+    pushToLocal(arrImp)
   }
+
   const toggleComplete = (dataset) => {
     let completeTarget = taskList.filter(task => task.id == dataset)
     let completeIndex = taskList.indexOf(completeTarget[0])
@@ -87,13 +96,15 @@ const taskData = (() => {
     }
   }
   const newSubTask = (dataset, subtask) => {
-    let subTarget = taskList.filter(task => task.id == dataset)
-    taskList[taskList.indexOf(subTarget[0])].push(subtask)
+    let taskListSub = returnLocal()
+    let subTarget = taskListSub.filter(task => task.id == dataset)
+    taskListSub[taskListSub.indexOf(subTarget[0])].push(subtask)
+    pushToLocal(taskListSub)
   }
   const delSubtask = (dataset, subtask) => {
-    let delTarget = taskList.filter (task => task.id == dataset)
-    let subtaskToDelete = taskList[taskList.indexOf(delTarget[0])]
-      .subtask
+    let taskListSubDel = returnLocal()    
+    let subTaskArray = taskListSubDel.filter
+    subtaskToDelete
   }
   const getProperty = (dataset, property) => {
     let propertyTarget = taskList.filter(task => task.id == dataset)
@@ -111,8 +122,44 @@ const taskData = (() => {
     toggleImportant,
     getProperty,
     pushToLocal,
-    returnLocal
+    returnLocal,
+    newSubTask,
+    delSubtask
   }
 })()
 
-export default taskData;
+const projectData = (() => {
+  const getProjects = () => {
+    if (!localStorage.getItem("projects")) {
+      localStorage.setItem("projects", "[]")
+    }
+    let projectList = JSON.parse(localStorage.getItem("projects"))
+    return projectList
+  }
+  const addProject = () => {
+    let projectList = JSON.parse(localStorage.getItem("projects"))
+    projectList.push(`new project ${projectList.length + 1}`)
+    localStorage.setItem("projects", JSON.stringify(projectList))
+  }
+
+  const deleteProject = (projectName) => {
+    let deleteList = JSON.parse(localStorage.getItem("projects"))
+    deleteList = deleteList.filter(elem => elem.deleteList !== projectName)
+    localStorage.setItem("projects", JSON.stringify(deleteList))
+  }
+  const renameProject = (oldName, newName) => {
+    let renameList = JSON.parse(localStorage.getItem("projects"))
+    let renameIndex = renameList.indexOf(oldName)
+    renameList[renameIndex] = newName
+    localStorage.setItem("projects", JSON.stringify(renameList))
+  }
+
+  return {
+    getProjects,
+    addProject,
+    deleteProject,
+    renameProject
+  }
+})()
+
+export { taskData, projectData };
