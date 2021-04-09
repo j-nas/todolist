@@ -23,7 +23,7 @@ const render = (() => {
     waterDrop.innerHTML = icon.bars
     titleBar.appendChild(waterDrop);
     const _title = document.createElement("div")
-    _title.innerHTML = `<h1>Doist</h1>`
+    _title.innerHTML = `<h1>Taske</h1>`
     titleBar.appendChild(_title)
   };
 
@@ -38,7 +38,7 @@ const render = (() => {
     menuItem({ label: "Today", dataset: "today" }),
     menuItem({ label: "This Week", dataset: "week" }),
     menuItem({ label: "Important", dataset: "important" }),
-    menuItem({ label: "Completed", dataset: "completed" }),
+    menuItem({ label: "Completed", dataset: "complete" }),
   ];
 
   
@@ -48,8 +48,7 @@ const render = (() => {
     let projects = projectData.getProjects()
     
     if (projects.length) {
-      for (let i = projects.length - 1; i >= 0; i++) {
-        console.log(defaultMenuItems[i]);
+      for (let i = 0; i < projects.length; i++) {
         let project = document.createElement("div");
         project.classList.add("menuItem");
         project.setAttribute("data-menu", `${projects[i]}`);
@@ -99,7 +98,7 @@ const render = (() => {
         taskName.classList.add("taskName")
         taskName.setAttribute("data-task", `${taskList[i].id}`)
         taskName.innerHTML = `${icon.minus}
-          <input type="text data-task="${taskList[i].id}" id="taskName" 
+          <input type="text" data-task="${taskList[i].id}" class="taskNameInput" 
           value="${taskList[i].title}">`
         taskTitle.appendChild(taskName)
         let taskProject = document.createElement("div")
@@ -111,11 +110,12 @@ const render = (() => {
         taskDate.classList.add("taskDate")
         taskDate.setAttribute("data-task", `${taskList[i].id}`)
         taskDate.innerHTML = 
-          `<input type="date" id="taskDate" data-task="${taskList[i].id}" value="${taskList[i].date}">`//gettaskdate
+        `<input type="date" class="taskDate" data-task="${taskList[i].id}" value="${taskList[i].date}">`//gettaskdate
+        let taskDateInput = taskDate.querySelector(".taskDate")
         if(compareAsc(
             parseISO(taskList[i].date), 
-            parseISO(new Date().toISOString().slice(0,10))) <= 0) {
-          taskDate.style.color = "red"
+            parseISO(new Date().toISOString().slice(0,10))) < 0) {
+          taskDateInput.style.color = "red"
         }
         taskTitle.appendChild(taskDate)                         //if taskdate < today make red
 
@@ -123,22 +123,25 @@ const render = (() => {
         taskDesc.classList.add("taskDesc")
         taskDesc.setAttribute("data-task", `${taskList[i].id}`)
         taskDesc.innerHTML = 
-          `<textarea resize="none" data-task="${taskList[i].id}" id="description">${taskList[i].description}</textarea>`
+          `<input type="text" data-task="${taskList[i].id}"` + 
+          `class="description" value="${taskList[i].description}">`
         task.appendChild(taskDesc)
 
         let subTasks = document.createElement("div")
         subTasks.classList.add("subTasks")
         task.appendChild(subTasks)
-        for (let j = 0; j < taskList[i].subtasks.length; j++) { //get subtasks
-          let subtask = document.createElement("div")
-          subtask.classList.add("subtask")
-          subtask.setAttribute("data-task", `${taskList[i].id}`)
-          subtask.innerHTML = 
-            icon.subMinus + `<input type="text" id="subtask" value="${taskList[i].subtasks[j]}"` 
-          subTasks.appendChild(subtask)
+        if(!taskList[i].subTasks) {
+          for (let j = 0; j < taskList[i].subtasks.length; j++) { //get subtasks
+            let subtask = document.createElement("div")
+            // subtask.classList.add("subtask")
+            subtask.setAttribute("data-task", `${taskList[i].id}`)
+            subtask.innerHTML = 
+              icon.subMinus + `<input type="text" class="subtask" value="${taskList[i].subtasks[j]}">` 
+            subTasks.appendChild(subtask)
+          }
         }
         let newSubtask = document.createElement("div")
-        newSubtask.classList.add("subtask")
+        newSubtask.classList.add("newSubtask")
         newSubtask.id = "newSubtask"
         newSubtask.setAttribute("data-task", `${taskList[i].id}`)
         newSubtask.innerHTML = icon.plus + ` New subtask`
@@ -175,18 +178,24 @@ const render = (() => {
   const projectMenu = (id) => {
     let targetTask = document.querySelector(`.taskProject[data-task="${id}"]`)
     let dropMenu = document.createElement("div")
-    console.log(targetTask)
     dropMenu.classList.add("dropMenu")
     targetTask.appendChild(dropMenu)
     let projects = projectData.getProjects()
-    for (let i = 0; i < projects.Length; i++) {
+    for (let i = 0; i < projects.length ; i++) {
       let proj = document.createElement("div")
       proj.classList.add("projMenuItem")
-      proj.setAttribute("data-proj", i)
+      proj.setAttribute("data-proj", id)
       proj.innerHTML = projects[i]
       dropMenu.appendChild(proj)
     }
+    let clearProject = document.createElement("div")
+    clearProject.classList.add("projMenuItem", "clearProject")
+    clearProject.setAttribute("data-proj", id)
+    clearProject.innerHTML = icon.minus + " Clear Project"
+    dropMenu.appendChild(clearProject)
+
   }
+  
 
   const base = () => {
     const container = document.querySelector("#container");
@@ -209,6 +218,7 @@ const render = (() => {
     drawCards,
     setMenuItem,
     projectMenu,
+    
   };
 })();
 

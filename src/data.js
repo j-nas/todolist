@@ -1,14 +1,30 @@
+import render from "./dom";
+import { isSameISOWeek, parseISO, endOfWeek } from '../node_modules/date-fns'
 const taskData = (() => {
   
   
   const getTasks = (sort) => {
+    let todaysDate = (new Date())
+    let sunday = endOfWeek(todaysDate) 
     switch (sort) {
       case "all":
         return JSON.parse(localStorage.getItem("tasks"))
-        
-    
+      case "today":
+        let todayList = JSON.parse(localStorage.getItem("tasks")) 
+        return todayList
+          .filter(task => task.date == new Date().toISOString().slice(0,10))
+          
+      case "week":
+        let weekList = JSON.parse(localStorage.getItem("tasks"))
+        return weekList.filter((task) => isSameISOWeek(parseISO(task.date), sunday))
+      case "important":
+        let importantList = JSON.parse(localStorage.getItem("tasks"))
+        return importantList.filter((task) => task.important == true)
+      case "complete":
+        let completedList = JSON.parse(localStorage.getItem("tasks"))
+        return completedList.filter((task) => task.complete == true)
       default:
-        break;
+        return JSON.parse(localStorage.getItem("tasks")).filter(task => task.project == sort)
     }
   }
   //initialize local storage
@@ -64,8 +80,10 @@ const taskData = (() => {
   }
   const addDesc = (dataset, newDesc) => {
     let arrDesc = returnLocal() 
+    
     let descTarget = arrDesc.filter(task => task.id == dataset)
     arrDesc[arrDesc.indexOf(descTarget[0])].description = newDesc
+    
     pushToLocal(arrDesc)
   }
   const addProject = (dataset, newProject) => {
@@ -98,25 +116,37 @@ const taskData = (() => {
     }
     pushToLocal(taskList)
   }
+  
   const newSubTask = (dataset) => {
     let taskListSub = returnLocal()
     let subTarget = taskListSub.filter(task => task.id == dataset)
-    taskListSub[taskListSub.indexOf(subTarget[0])].push("subtask")
+    let subTaskCount = taskListSub[taskListSub.indexOf(subTarget[0])].subtasks.length
+    taskListSub[taskListSub.indexOf(subTarget[0])].subtasks.push(`sbtasuk ${subTaskCount}`)
     pushToLocal(taskListSub)
   }
   const delSubtask = (dataset, subtask) => {
     let taskListDel = returnLocal()    
-    let targetTask = taskListDel.filter(task => task.taskListDel == dataset)
-    taskListDel[taskListDel.indexOf(targetTask)]
-      .subtask.filter(task => task !== subtask)
+    let targetTask = taskListDel.filter(task => task.id == dataset)
+    taskListDel[taskListDel.indexOf(targetTask[0])].subtasks = taskListDel[taskListDel.indexOf(targetTask[0])]
+      .subtasks.filter(task => task !== subtask)
     pushToLocal(taskListDel)
 
   }
+
+  const editSubtask = (dataset, oldtask, newtask) => {
+    let taskList = returnLocal()
+    let targetTask = taskList.filter(task => task.id == dataset)
+    let targetSubtask = taskList[taskList.indexOf(targetTask[0])].subtasks.indexOf(oldtask)
+    taskList[taskList.indexOf(targetTask[0])].subtasks[targetSubtask] = newtask
+    pushToLocal(taskList)
+  }
+
   const getProperty = (dataset, property) => {
     let propertyTarget = taskList.filter(task => task.id == dataset)
     return taskList[taskList.indexOf(propertyTarget[0])][property]
   }
-
+  
+  
   return {
     addTitle,
     newTask,
@@ -131,7 +161,8 @@ const taskData = (() => {
     pushToLocal,
     returnLocal,
     newSubTask,
-    delSubtask
+    delSubtask,
+    editSubtask,
   }
 })()
 

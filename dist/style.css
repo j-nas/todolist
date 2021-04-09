@@ -3,101 +3,103 @@ body {
   height: auto;
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
-  
+  margin-bottom: 24px;
 }
-/* * {
+
+* {
   -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-} */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 
 h1 {
   font-family: 'Montserrat', sans-serif;
-  font-size: 60pt;
+  font-size: 50pt;
   font-weight: 700;
+  margin-top: .125em;
+  margin-bottom: .125em;
 }
 .fa-minus {
   color: rgb(238, 59, 59);
 }
+
 .fa-plus {
   color: rgb(32, 232, 32);
   pointer-events: none;
 }
+
 .fa-bars {
   color: black;
   transform: rotate(-45deg);
   visibility: hidden;
 }
+
 .fa-exclamation {
   pointer-events: none;
   color: black;
 }
+
 .fa-check {
   pointer-events: none;
 }
+
 /* Tear drop from https://csslayout.io/patterns/teardrop/ 
 © 2019-2021 Nguyen Huu Phuoc */
+
 .waterDrop {
-    position: relative;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    
-    border: 2px solid rgb(255, 255, 255);
-    border-radius: 0px 50% 50% 50%;
-
-    transform: rotate(45deg);
-
-    height: 64px;
-    width: 64px;
-    margin: 4px;
-    
-    top: 25%;
-    bottom: 50%;
-    background-image: radial-gradient(ellipse at top, rgb(255, 255, 255) 50%, rgb(203, 205, 255));
-    
+  margin:0px;
+  position: relative;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 0px 50% 50% 50%;
+  transform: rotate(45deg);
+  height: 64px;
+  width: 64px;
+  margin: 4px;
+  top: 25%;
+  bottom: 50%;
+  background-image: radial-gradient(ellipse at top, rgb(255, 255, 255) 50%, rgb(203, 205, 255));
 }
+
 #waterDropContent {
   transform: rotate(-45deg);
 }
+
 #container {
-  
   display: grid;
   grid-template-columns: 250px 1fr;
-  grid-template-rows: 125px auto;
-  grid-template-areas: 
-    "title title"
-    "menu content";
+  grid-template-rows: 100px auto;
+  grid-template-areas: "title title" "menu content";
   row-gap: 10px;
   /* background-color: #E1E2E1; */
   background-color: white;
   /* max-height: 100vh; */
-  
   margin-top: 0px;
   margin-bottom: 0px;
   padding-bottom: 1px;
-  
-  
 }
-  
+
 .titlebar {
   grid-area: title;
   background-color: #039be5;
   display: grid;
   grid-template-columns: 64px 1fr;
   color: white;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   margin-bottom: 0px;
-  align-self:auto;
+  align-self: auto;
 }
+
 .menu {
   grid-area: menu;
   /* align-self: stretch; */
   height: max-content;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   background-color: #E1E2E1;
-  
 }
+
 .menuItem {
   text-align: right;
   font-size: 20pt;
@@ -106,24 +108,26 @@ h1 {
   padding-right: 10px;
   font-weight: 500;
   font-family: 'Montserrat', sans-serif;
-  
 }
-.menuItem:hover {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23) inset;
 
+.menuItem:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) inset;
 }
+
 .selected {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   border-style: solid;
   margin-top: 3px;
   margin-bottom: 3px;
   background-color: #63ccff;
 }
+
 #newProject {
   background-color: transparent;
   outline: none;
   border-style: none;
 }
+
 .contentArea {
   grid-area: content;
   display: grid;
@@ -135,14 +139,10 @@ h1 {
   padding-left: 3rem;
   gap: 1rem;
   overflow-y: hidden;
-  
- 
-  
-  
-  
 }
+
 .task {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   height: fit-content;
   display: grid;
   grid-template-rows: 1.5em auto auto 2em;
@@ -151,79 +151,84 @@ h1 {
   margin-right: 3rem;
   margin-bottom: 1rem;
 }
+
 .taskTitle {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   background-color: #039be5;
   color: white;
-
 }
-  .taskName {
-    justify-self: left;
-    margin-left: 1em;
-    align-self: center;
 
-    
-  }
-  #taskName {
-    background-color: transparent;
-    border-style: none;
-    font-family: 'Montserrat', sans-serif;
-    text-align: left;
-    width: 65px;
-    color: white;
-    overflow-x: visible;
-    font-size: 9pt;
+.taskName {
+  justify-self: left;
+  margin-left: 1em;
+  align-self: center;
+  max-width: fit-content;
+}
 
-  }
- 
-  #taskName:focus {
-    border-style: none;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    outline: none;
-  }
-  .taskProject {
-    place-self: center;
-    font-size: 10pt;
-  }
-  .projectMenu {
-    display: none;
-    position: absolute;
-    z-index: 10;
-  }
-  .projectMenu:hover {
-    
-    display: block;
-  }
-  .taskDate {
-    justify-self: right;
-    align-self: center;
-    text-align: right;
-    color: white;
-    
-  }
-  #taskDate {
-    background-color: transparent;
-    border-style: none;
-    font-family: 'Montserrat', sans-serif;
-    text-align: left;
-    width: 120px;
-    color: white;
-    overflow-x: visible;
-    font-size: 9pt;
-  }
- 
-  #taskDate:focus {
-    border-style: none;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    outline: none;
-  }
+.taskNameInput {
+  background-color: transparent;
+  border-style: none;
+  font-family: 'Montserrat', sans-serif;
+  text-align: left;
+  width: 75px;
+  color: white;
+  overflow-x: visible;
+  font-size: 9pt;
+}
+
+.taskNameInput:focus {
+  border-style: none;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  outline: none;
+}
+
+.taskProject {
+  place-self: center;
+  font-size: 10pt;
+}
+
+.projectMenu {
+  display: none;
+  position: absolute;
+  z-index: 10;
+}
+
+.projectMenu:hover {
+  display: block;
+}
+
+.taskDate {
+  justify-self: right;
+  align-self: center;
+  text-align: right;
+  color: white;
+}
+
+.taskDate {
+  background-color: transparent;
+  border-style: none;
+  font-family: 'Montserrat', sans-serif;
+  text-align: left;
+  width: 120px;
+  color: white;
+  overflow-x: visible;
+  font-size: 9pt;
+}
+
+.taskDate:focus {
+  border-style: none;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  outline: none;
+}
+
 .taskDesc {
   place-self: stretch;
   margin: 1rem
 }
-#description {
+
+.description {
   width: 100%;
   overflow-y: auto;
   max-height: 100%;
@@ -235,24 +240,43 @@ h1 {
   text-indent: 1rem;
 }
 
-#description:focus {
+.description:focus {
   border-style: none;
   outline: none;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
+
 textarea {
   resize: none;
   background-color: transparent;
+  font-size: 16px;
 }
+
 .subTasks {
   place-self: center;
   text-align: center;
 }
 
-.subtask:hover {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23) inset;
-
+.subtask {
+  background-color: transparent;
+  border-style: none;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  width: fit-content;
+  overflow-x: visible;
+  font-size: 12pt;
 }
+
+.subtask:focus {
+  border-style: none;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  outline: none;
+}
+
+.newSubtask:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) inset;
+}
+
 .taskFooter {
   display: grid;
   place-self: stretch;
@@ -260,10 +284,12 @@ textarea {
   grid-template-columns: 1fr 1.5em;
   align-self: end;
 }
+
 .taskComplete {
   width: 100%;
   align-self: stretch;
 }
+
 .taskImportant {
   background-color: white;
   justify-self: right;
@@ -271,37 +297,37 @@ textarea {
   border-style: solid;
   border-color: red;
 }
-.taskImportant:hover {
-  
-  box-shadow: 0 10px 20px rgba(226, 10, 10, 0.19), 0 6px 6px rgba(181, 43, 43, 0.23) inset;
 
+.taskImportant:hover {
+  box-shadow: 0 10px 20px rgba(226, 10, 10, 0.19), 0 6px 6px rgba(181, 43, 43, 0.23) inset;
 }
+
 /* .taskComplete:hover {
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23) inset;
 
 } */
+
 .addNewTask {
   height: .6em;
   padding-top: .5em;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   background-color: #E1E2E1;
   padding-bottom: .5em;
   margin-right: 3em;
   text-align: center;
   place-self: stretch;
   margin-top: 4rem;
-  
+  margin-bottom: .5rem;
 }
-.addNewTask:hover {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23) inset;
 
+.addNewTask:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) inset;
 }
 
 .bottomBar {
   display: grid;
   grid-template-columns: 1fr;
   align-content: left;
-
   position: fixed;
   background-color: rgba(0, 0, 0, 0.912);
   color: white;
@@ -314,13 +340,13 @@ textarea {
   z-index: 100;
   padding-top: 2px;
   font-size: 8pt;
-
-  
 }
+
 a {
   color: white;
   text-decoration: none;
 }
+
 a:visited {
   color: white;
   text-decoration: none;
@@ -360,8 +386,9 @@ button {
   background-color: white;
   color: black;
   z-index: 100;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
+
 .projMenuItem {
   text-align: left;
   font-size: 20pt;
@@ -370,8 +397,9 @@ button {
   padding-right: .5em;
   padding-left: .5em;
   font-family: 'Montserrat', sans-serif;
-  
+  z-index: 101;
 }
+
 .projMenuItem:hover {
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23) inset;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) inset;
 }
